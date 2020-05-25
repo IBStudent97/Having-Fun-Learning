@@ -1,0 +1,203 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+int main(void)
+{
+    //get information
+    int curr_month;
+    do
+    {
+        curr_month = get_int("What is the current month?\n");
+    } while ( curr_month < 1 || curr_month > 12);
+    
+    int curr_day;
+    do
+    {
+        curr_day = get_int ("What is the current day?\n");
+    } while (curr_day < 1 || curr_day > 31);
+    
+    int curr_year = get_int("What is the current year\n");
+    
+     if (curr_year %4 !=0 && curr_month ==2 && curr_day > 28)
+    {
+        printf("Feburary only goes up to 28 this year\n");
+        return -1;
+    }
+    else if(curr_year %4 ==0 && curr_month == 2 && curr_day > 29)
+    {
+        printf("Feburary only goes up to 29 this year\n");
+           return -1;
+    }
+   
+    int month;
+    do
+    {
+        month = get_int("What month were you born?\n");
+    } while ( month < 1 || month > 12);
+    
+    int day;
+    do
+    {
+        day = get_int ("What day were you born?\n");
+    } while (day < 1 || day > 31);
+    
+    int year;
+    do
+    {
+        year = get_int("What year were you born?\n");
+    } while (year > curr_year);
+   
+    // stop leap year trolls
+    int year_diff = curr_year - year;
+    if (year_diff % 4 != 0 && month == 2 && day > 28)
+    {
+        printf("Feburary only goes up to 28 this year\n");
+    }
+     else if (year_diff % 4 == 0 && month == 2 && day > 29)
+    {
+        printf("Feburary only goes up to 29 this year\n");
+    }
+    else
+    {
+    printf("%i/%i/%i\n", month, day, year);
+    }
+    
+    //account for leap years experienced
+    int leap_year_count = floor((year_diff /4) + 1);
+    int weirdos = floor(year_diff /4);
+    if (year_diff == 0 && curr_month < 2)
+    {
+        printf("no leap year experienced \n");
+    }
+    else if (year_diff % 4 == 0 && month > 3)
+    {
+        printf("Leap year count: %i \n", weirdos);
+    }
+    else
+    {
+    printf("Leap year count: %i\n",leap_year_count);
+    }
+    
+    //calculate days since current time
+    int curr_total_days = 0;
+    if (curr_month == 1)
+    {
+        curr_total_days = curr_year * 365 + 0 + curr_day;
+    }
+    else if (curr_month == 2)
+    {
+        curr_total_days = curr_year * 365 + 31 + curr_day;
+    }
+    else if (curr_month == 3)
+    {
+        curr_total_days = curr_year * 365 + 59 + curr_day;
+    }
+    else if (curr_month == 4)
+    {
+        curr_total_days = curr_year * 365 + 90 + curr_day;
+    }
+    else if (curr_month == 5)
+    {
+        curr_total_days = curr_year * 365 + 120 + curr_day;
+    }
+    else if (curr_month == 6)
+    {
+        curr_total_days = curr_year * 365 + 151 + curr_day;
+    }
+    else if (curr_month == 7)
+    {
+        curr_total_days = curr_year * 365 + 181 + curr_day;
+    }
+    else if (curr_month == 8)
+    {
+        curr_total_days = curr_year * 365 + 212 + curr_day;
+    }
+    else if (curr_month == 9)
+    {
+        curr_total_days = curr_year * 365 + 243 + curr_day;
+    }
+    else if (curr_month == 10)
+    {
+        curr_total_days = curr_year * 365 + 273 + curr_day;
+    }
+    else if (curr_month == 11)
+    {
+        curr_total_days = curr_year * 365 + 304 + curr_day;
+    }
+    else if (curr_month == 12)
+    {
+        curr_total_days = curr_year * 365 + 334 + curr_day;
+    }
+   
+    // calculate days of birthday
+    int total_days = 0;
+    if (month == 1)
+    {
+        total_days = year * 365 + 0 + day;
+    }
+    else if (month == 2)
+    {
+        total_days = year * 365 + 31 + day;
+    }
+    else if (month == 3)
+    {
+        total_days = year * 365 + 59 + day;
+    }
+    else if (month == 4)
+    {
+        total_days = year * 365 + 90 + day;
+    }
+    else if (month == 5)
+    {
+        total_days = year * 365 + 120 + day;
+    }
+    else if (month == 6)
+    {
+        total_days = year * 365 + 151 + day;
+    }
+    else if (month == 7)
+    {
+        total_days = year * 365 + 181 + day;
+    }
+    else if (month == 8)
+    {
+        total_days = year * 365 + 212 + day;
+    }
+    else if (month == 9)
+    {
+        total_days = year * 365 + 243 + day;
+    }
+    else if (month == 10)
+    {
+        total_days = year * 365 + 273 + day;
+    }
+    else if (month == 11)
+    {
+        total_days = year * 365 + 304 + day;
+    }
+    else if (month == 12)
+    {
+        total_days = year * 365 + 334 + day;
+    }
+    
+    // calculate days alive
+    int days_alive;
+    if (year_diff == 0 && curr_month < 2)
+    {
+        days_alive = curr_total_days - total_days;
+    }
+    if (curr_year % 4 == 0 && month > 3)
+    {
+        days_alive = curr_total_days - total_days + weirdos;
+    }
+    else
+    {
+        days_alive = curr_total_days - total_days + leap_year_count;
+    }
+    //weeks and year alive approximated down
+    int weeks_alive = floor(days_alive /7);
+    int years_alive = floor(days_alive/ 365.24);
+    //print answer
+    printf("days alive: %i\napproximately %i weeks alive\napproximately %i years alive\n",days_alive, weeks_alive, years_alive);
+}
